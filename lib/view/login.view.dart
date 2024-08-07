@@ -28,32 +28,34 @@ class LoginView extends GetView<LoginController> {
 class Login extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const TitleBarWindows(),
-        Expanded(
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [corPrimariaDegrade, corSecundariaDegrade],
-                  stops: [0.0, 1.0]),
+    return Container(
+      child: Column(
+        children: [
+          titleBarWindows(true, false, true),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [corPrimariaDegrade, corSecundariaDegrade],
+                    stops: [0.0, 1.0]),
+              ),
+              constraints: const BoxConstraints.expand(),
+              child: Column(
+                children: [
+                  const Imagem(),
+                  const LoginUser(),
+                  const LoginSenha(),
+                  const LoginMsgErro(),
+                  Button()
+                ],
+              ),
+              //color: Color.fromRGBO(17, 17, 17, 1),
             ),
-            constraints: const BoxConstraints.expand(),
-            child: Column(
-              children: [
-                Imagem(),
-                const LoginUser(),
-                LoginSenha(),
-                LoginMsgErro(),
-                Button()
-              ],
-            ),
-            //color: Color.fromRGBO(17, 17, 17, 1),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

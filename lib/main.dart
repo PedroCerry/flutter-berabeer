@@ -8,7 +8,7 @@ void main() {
     var tamanhoInicial = Size(450, 600);
     appWindow.size = tamanhoInicial;
     appWindow.minSize = tamanhoInicial;
-    appWindow.maxSize = tamanhoInicial;
+    //appWindow.maxSize = tamanhoInicial;
     appWindow.title = 'Bera Bear';
     appWindow.show();
     //appWindow.size =

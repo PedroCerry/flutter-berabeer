@@ -1,4 +1,6 @@
 import 'package:berabear/barrel/barrelPrinc.dart';
+import 'package:berabear/widgets_commons/w_title_bar_windows.dart';
+import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -29,26 +31,34 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const TitleBarWindows(),
-        Expanded(
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [corPrimariaDegrade, corSecundariaDegrade],
-                  stops: [0.0, 1.0]),
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+
+    return SizedBox(
+      width: screenWidth,
+      height: screenHeight,
+      child: Column(
+        children: [
+          titleBarWindows(true, true, true),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [corPrimariaDegrade, corSecundariaDegrade],
+                    stops: [0.0, 1.0]),
+              ),
+              constraints: const BoxConstraints.expand(),
+              /* child: Column(
+                children: [Imagem(), const LoginUser(), LoginSenha(), Button()],
+              ),*/
+              //color: Color.fromRGBO(17, 17, 17, 1),
             ),
-            constraints: const BoxConstraints.expand(),
-            /* child: Column(
-              children: [Imagem(), const LoginUser(), LoginSenha(), Button()],
-            ),*/
-            //color: Color.fromRGBO(17, 17, 17, 1),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
