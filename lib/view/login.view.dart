@@ -175,8 +175,6 @@ class LoginSenhaState extends State<LoginSenha> {
   }
 }
 
-var VarTeste = '';
-
 class LoginMsgErro extends StatefulWidget {
   const LoginMsgErro({Key? key}) : super(key: key);
 
@@ -185,68 +183,55 @@ class LoginMsgErro extends StatefulWidget {
 }
 
 class _LoginMsgErroState extends State<LoginMsgErro> {
+  String msg = '';
+
+  void setarMsgErro(String msgErro) {
+    setState(() {
+      msg = msgErro;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.fromLTRB(60, 10, 60, 0),
+        padding: const EdgeInsets.fromLTRB(60, 0, 60, 10),
         child: Text(
-          VarTeste,
+          msg,
           style: TextStyle(color: Colors.amber),
         ));
   }
-
-  void teste() => setState(() {
-        VarTeste = 'teste';
-      });
 }
 
-// class Teste extends StatefulWidget {
-//   const Teste({Key? key}) : super(key: key);
-
-//   @override
-//   _TesteState createState() => _TesteState();
-// }
-
-// class _TesteState extends State<Teste> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//         padding: const EdgeInsets.fromLTRB(60, 10, 60, 0),
-//         child: Text(VarTeste));
-//   }
-// }
-
-// class Button extends StatefulWidget {
-//   const Button({Key? key}) : super(key: key);
-
-//   @override
-//   _ButtonState createState() => _ButtonState();
-// }
-
 class Button extends GetView<LoginController> {
+  final GlobalKey<_LoginMsgErroState> loginMsgErroKey =
+      GlobalKey<_LoginMsgErroState>();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(60, 12, 60, 0),
-      child: TextButton(
-        style: TextButton.styleFrom(
-          foregroundColor: Colors.black,
-          backgroundColor: corPrincipal,
-          padding: const EdgeInsets.fromLTRB(90, 16, 90, 16),
-          textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        onPressed: () {
-          controller.tryToLogin();
-          if (controller.Logar) {
-            context.go('/menuPrinc');
-          } else {
-            //setState
-            //LoginMsgErro.
-            VarTeste = controller.MsgErro;
-            print(controller.MsgErro);
-          }
-        }, //.go('/menuPrinc'),
-        child: const Text('Entrar'),
+      padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+      child: Column(
+        children: [
+          LoginMsgErro(key: loginMsgErroKey),
+          TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.black,
+              backgroundColor: corPrincipal,
+              padding: const EdgeInsets.fromLTRB(90, 16, 90, 16),
+              textStyle:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {
+              controller.tryToLogin();
+              if (controller.Logar) {
+                context.go('/menuPrinc');
+              } else {
+                loginMsgErroKey.currentState?.setarMsgErro(controller.MsgErro);
+              }
+            }, //.go('/menuPrinc'),
+            child: const Text('Entrar'),
+          ),
+        ],
       ),
     );
   }
